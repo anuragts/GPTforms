@@ -13,6 +13,27 @@ datasource db {
 
 model user {
   id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
   email String @unique
   name String?
+  forms forms[]
+}
+
+model forms {
+  id Int @id @default(autoincrement())
+  name String
+  createdAt DateTime @default(now())
+  description String
+  user_id Int
+  user user @relation(fields: [user_id], references: [id])
+  form_fields form_fields[]
+} 
+
+model form_fields {
+  id Int @id @default(autoincrement())
+  name String
+  createdAt DateTime @default(now())
+  description String
+  form_id Int
+  form forms @relation(fields: [form_id], references: [id])
 }
