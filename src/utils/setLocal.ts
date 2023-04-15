@@ -1,9 +1,7 @@
-// use Effect and useState to add mail to local storage
-
 import { useEffect, useState } from 'react';
 
-export const setLocal = (mail:string) => {
+export const useSetLocal = (mail:string) => {
     useEffect(() => {
-        localStorage.setItem('email', mail)
-    })
-}
+      localStorage.setItem('email', mail)
+    }, [])
+  }
