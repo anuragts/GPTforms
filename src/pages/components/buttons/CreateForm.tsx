@@ -1,8 +1,8 @@
 interface Props {
     // user_id: string;
-    email: string;
-    name: string;
-    description: string;
+    email?: string;
+    name?: string;
+    description?: string;
 }
 
 export default async (props :Props) => {
