@@ -37,8 +37,6 @@ export default async (props :Props) => {
     })
 
     if (response.status === 201) {
-        return true;
-    } else{
-        return false;
-    }
+        return response.json();
+    } 
 }

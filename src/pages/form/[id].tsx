@@ -1,32 +1,30 @@
 import { useState } from "react";
+import axios from "axios";
 import { useRouter } from "next/router";
-import CreateForm from "@/pages/components/buttons/CreateForm";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-interface FormProps {
-  email: string;
-}
-
-export default function Form({ email }: FormProps) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
+export default function Form() {
   const router = useRouter();
+  const { id }  = router.query ;
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const form = await CreateForm({ name, email, description });
-      
-      if (form) {
-        toast.success("Created form successfully!");
-        router.push(`/form/${form?.id}`);
-      } else {
-        toast.error("Failed to create form.");
-      }
+      const response = await axios.post("/api/Form/createFields", {
+        name,
+        description,
+        form_id: id,
+      });
+
+      setName("");
+      setDescription("");
+      toast.success("Field created successfully!");
     } catch (error) {
       console.error(error);
       toast.error("An error occurred.");
@@ -57,9 +55,8 @@ export default function Form({ email }: FormProps) {
       />
 
       <button type="submit" disabled={loading}>
-        {loading ? "Loading..." : "Create Form"}
+        {loading ? "Loading..." : "Create Field"}
       </button>
-
       <ToastContainer />
     </form>
   );
