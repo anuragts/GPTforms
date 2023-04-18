@@ -5,7 +5,7 @@ interface Props {
     description?: string;
 }
 
-export default async (props :Props) => {
+export default async (props :any) => {
     // const user_id = props?.user_id;
     const email = props?.email
     const name = props?.name;
