@@ -3,7 +3,7 @@ import type{ NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/db/client"
 export default async (req:NextApiRequest,res:NextApiResponse) => {
 
-  const {email} = req.body
+  const {email}:{email:string} = req.body
 
   // const parseEmail = email;
   const user = await prisma.user.findUnique({
