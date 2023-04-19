@@ -1,4 +1,4 @@
-[] Add new user to db after auth
+[x] Add new user to db after auth
 [] Response Schema
 [] Response Function
 [] Show all forms and response

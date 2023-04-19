@@ -50,7 +50,7 @@ export default function FieldForm() {
         )
       );
       setFields([{ name: "", description: "" }]);
-      toast.success("Field created successfully!");
+      toast.success("Field created successfully!");7
     } catch (error) {
       console.error(error);
       toast.error("An error occurred.");

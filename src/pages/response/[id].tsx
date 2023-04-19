@@ -38,9 +38,9 @@ export default function FormResponse() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send form data to API
-      const response = await axios.post("/api/Form/submit", { id, formData });
-      if (response.status === 201) {
+      // Send form data to API  
+      const response = await axios.post("/api/Form/submitForm", { id, formData });
+      if (response.data == true) {
         console.log("Form submitted successfully");
       }
     } catch (error) {
