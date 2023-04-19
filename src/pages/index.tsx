@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import { useAuth, useUser } from "@clerk/nextjs";
-import Form from "./components/Form";
+import Form from "../components/Form";
 
 export default function Home() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();

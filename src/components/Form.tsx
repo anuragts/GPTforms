@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import CreateForm from "@/pages/components/buttons/CreateForm";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 interface FormProps {
   email: string;
@@ -14,13 +14,41 @@ export default function Form({ email }: FormProps) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  interface Props {
+    email?: string;
+    name?: string;
+    description?: string;
+  }
+
+  const CreateForm = async (props: Props) => {
+    const email = props?.email;
+    const name = props?.name;
+    const description = props?.description;
+
+    const data = await axios.post("/api/User/getId", {
+      email,
+    });
+
+    const user_id = data.data?.id;
+
+    const response = await axios.post("/api/Form/createForm", {
+      name,
+      description,
+      user_id,
+    });
+
+    if (response.status === 201) {
+      return response.data;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const form = await CreateForm({ name, email, description });
-      
+      const form = await CreateForm({ name, description, email });
+
       if (form) {
         toast.success("Created form successfully!");
         router.push(`/form/${form?.id}`);
