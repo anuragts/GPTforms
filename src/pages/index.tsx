@@ -16,7 +16,6 @@ export default function Home() {
         <main className="text-4xl flex justify-center mt-[40vh]">
           <div className="fon t-semibold">
             Hello World from GPTforms. User: {userEmail}
-
             <Form email={`${userEmail}`} />
           </div>
           <SignOutButton />
