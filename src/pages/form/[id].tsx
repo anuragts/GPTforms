@@ -4,16 +4,14 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-interface FormProps {
-  formId: string;
-}
+
 
 interface Field {
   name: string;
   description: string;
 }
 
-export default function FieldForm({ formId }: FormProps) {
+export default function FieldForm() {
   const router = useRouter();
   const { id } = router.query;
   const [fields, setFields] = useState<Field[]>([

@@ -3,7 +3,7 @@ import { useAuth, useUser } from "@clerk/nextjs";
 import Form from "../components/Form";
 
 export default function Home() {
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
+  const { isLoaded, userId } = useAuth();
   const { user } = useUser();
 
   const userEmail = user?.primaryEmailAddress?.emailAddress as string;
