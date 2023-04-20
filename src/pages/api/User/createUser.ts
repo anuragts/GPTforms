@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import  {prisma}  from "@/db/client";
+import { prisma } from "@/db/client";
 
 interface User {
   name?: string;
   email: string;
 }
 
-const handler = async (req: NextApiRequest , res:NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, email } = (await req.body) as User;
 
   const exists: Promise<Array<{ id: number }>> = prisma.user.findMany({

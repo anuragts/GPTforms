@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 interface FormField {
@@ -38,8 +38,11 @@ export default function FormResponse() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send form data to API  
-      const response = await axios.post("/api/Form/submitForm", { form_id:id, formData });
+      // Send form data to API
+      const response = await axios.post("/api/Form/submitForm", {
+        form_id: id,
+        formData,
+      });
       if (response.data == true) {
         console.log("Form submitted successfully");
       }
@@ -65,7 +68,7 @@ export default function FormResponse() {
           <p>{field.description}</p>
         </div>
       ))}
-      <button type="submit" disabled={loading} onClick={handleSubmit} >
+      <button type="submit" disabled={loading} onClick={handleSubmit}>
         {loading ? "Loading..." : "Submit"}
       </button>
     </div>

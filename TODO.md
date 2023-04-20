@@ -1,6 +1,6 @@
 [x] Add new user to db after auth
-[] Response Schema
-[] Response Function
+[x] Response Schema
+[x] Response Function
 [] Show all forms and response
 [] UI UX and announcement 
 [] gpt addition 

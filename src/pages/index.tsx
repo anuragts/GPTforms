@@ -8,8 +8,6 @@ export default function Home() {
   const { isLoaded, userId } = useAuth();
   const { user } = useUser();
 
-
-
   useEffect(() => {
     if (user) {
       const storedEmail = localStorage.getItem("email");
@@ -22,7 +20,7 @@ export default function Home() {
           if (response.data == false) {
             const createResponse = await axios.post("/api/User/createUser", {
               email: user?.primaryEmailAddress?.emailAddress,
-              name :user?.fullName,
+              name: user?.fullName,
             });
           }
           localStorage.setItem(
@@ -43,7 +41,8 @@ export default function Home() {
       <>
         <main className="text-4xl flex justify-center mt-[40vh]">
           <div className="font-semibold">
-            Hello World from GPTforms. User: {user?.primaryEmailAddress?.emailAddress}
+            Hello World from GPTforms. User:{" "}
+            {user?.primaryEmailAddress?.emailAddress}
             <Form email={`${user?.primaryEmailAddress?.emailAddress}`} />
           </div>
           <SignOutButton />

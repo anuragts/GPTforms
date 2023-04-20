@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
 interface Field {
   name: string;
   description: string;
@@ -50,7 +48,8 @@ export default function FieldForm() {
         )
       );
       setFields([{ name: "", description: "" }]);
-      toast.success("Field created successfully!");7
+      toast.success("Field created successfully!");
+      7;
     } catch (error) {
       console.error(error);
       toast.error("An error occurred.");
