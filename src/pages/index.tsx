@@ -38,16 +38,20 @@ export default function Home() {
     return <SignInButton />;
   } else {
     return (
-      <>
-        <main className="text-4xl flex justify-center mt-[40vh]">
-          <div className="font-semibold">
-            Hello World from GPTforms. User:{" "}
-            {user?.primaryEmailAddress?.emailAddress}
-            <Form email={`${user?.primaryEmailAddress?.emailAddress}`} />
-          </div>
-          <SignOutButton />
-        </main>
-      </>
+      <main className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Hello World from GPTforms</h1>
+            <p className="text-xl mb-8">
+              User: {user?.primaryEmailAddress?.emailAddress}
+              </p>
+              <Form email={`${user?.primaryEmailAddress?.emailAddress}`} />
+              </div>
+            <div className="mt-8">
+           <SignOutButton />
+         </div>
+      </main>
     );
   }
 }
+
+
