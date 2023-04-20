@@ -47,7 +47,7 @@ model response {
 
 model response_field {
   id          Int      @id @default(autoincrement())
-  field_id    Int
+  field_name  String?
   field_value String?
   response    response @relation(fields: [response_id], references: [id])
   response_id Int

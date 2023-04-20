@@ -1,15 +1,35 @@
+import { PrismaClient} from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from "next";
 
 interface Form {
-  form_id: number;
+  form_id: string;
   formData: {
     [key: string]: string;
   };
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { form_id,formData }: Form = req.body;
-  console.log(form_id, formData); // 9 { '10': 'This is 3', '11': 'This is 2', '12': 'This is 1' }
-  res.status(200).json({ form_id, formData });
-};
+const prisma = new PrismaClient();
 
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const { form_id, formData }: Form = req.body;
+
+  const id = parseInt(form_id);
+  
+  const response = await prisma.response.create({
+    data: {
+      form_id:id,
+      form_field: {
+        createMany: {
+          data: Object.entries(formData).map(([field_name, field_value]) => ({
+            field_name,
+            field_value
+          }))
+        }
+      }
+    }
+  });
+
+  console.log(response);
+
+  res.status(200).json(response);
+};
