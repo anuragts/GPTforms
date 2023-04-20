@@ -34,13 +34,13 @@ export default function FormResponse() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send form data to API
-      const response = await axios.post("/api/Form/submit", { id, formData });
-      if (response.status === 201) {
+      // Send form data to API  
+      const response = await axios.post("/api/Form/submitForm", { form_id:id, formData });
+      if (response.data == true) {
         console.log("Form submitted successfully");
       }
     } catch (error) {
@@ -65,7 +65,7 @@ export default function FormResponse() {
           <p>{field.description}</p>
         </div>
       ))}
-      <button type="submit" disabled={loading} >
+      <button type="submit" disabled={loading} onClick={handleSubmit} >
         {loading ? "Loading..." : "Submit"}
       </button>
     </div>
