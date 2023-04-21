@@ -81,7 +81,6 @@ export default function Form({ email }: FormProps) {
         name="description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        required
       />
 
       <button type="submit" disabled={loading}>

@@ -66,7 +66,7 @@ export default function FormsDashboard() {
             </div> */}
 
             <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                <Link href={`/form/${form.id}`}>Responses</Link>
+                <Link href={`/form/responses/${form.id}`}>Responses</Link>
                 </div>
           </div>
         ))
