@@ -21,7 +21,6 @@ export default function FormResponse() {
   // Fetch form fields data from API
   useEffect(() => {
     if (id) {
-      console.log("useEffect ran");
       const fetchFormFields = async () => {
         const response = await axios.post("/api/Form/getData", { id });
         setFormFields(response.data);
