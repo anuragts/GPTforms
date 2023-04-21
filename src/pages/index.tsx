@@ -46,7 +46,7 @@ export default function Home() {
               </p>
               <Form email={`${user?.primaryEmailAddress?.emailAddress}`} />
               </div>
-            <div className="mt-8">
+            <div className="mt-8 bg-red-500 text-white px-8 py-3 font-semibold text-xl rounded-xl">
            <SignOutButton />
          </div>
       </main>
