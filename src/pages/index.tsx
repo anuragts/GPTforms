@@ -1,8 +1,8 @@
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import Form from "../components/Form";
+import Link from "next/link";
 
 export default function Home() {
   const { isLoaded, userId } = useAuth();
@@ -34,24 +34,14 @@ export default function Home() {
   }, [user]);
 
   if (!isLoaded) return <div>Loading...</div>;
-  else if (!userId) {
-    return <SignInButton />;
-  } else {
+  else {
     return (
       <main className="flex flex-col items-center justify-center h-screen bg-gray-100">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Hello World from GPTforms</h1>
-            <p className="text-xl mb-8">
-              User: {user?.primaryEmailAddress?.emailAddress}
-              </p>
-              <Form email={`${user?.primaryEmailAddress?.emailAddress}`} />
-              </div>
-            <div className="mt-8 bg-red-500 text-white px-8 py-3 font-semibold text-xl rounded-xl">
-           <SignOutButton />
-         </div>
+          <Link href={"/form/create"}>Try Now.</Link>
+        </div>
       </main>
     );
   }
 }
-
-
