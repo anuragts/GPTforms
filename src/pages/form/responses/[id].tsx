@@ -26,12 +26,9 @@ export default function FormResponses() {
   const formId = id;
 
   useEffect(() => {
-    console.log(formId);
-    console.log('Use Effect ran')
     const fetchResponses = async () => {
       try {
         const response = await axios.post("/api/Form/allResponses",{formId});
-        console.log(response);
         setResponses(response.data);
         setLoading(false);
       } catch (error) {
