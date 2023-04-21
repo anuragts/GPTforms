@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap'); */
+
+@font-face {
+  font-family: 'CalSans';
+  src: url('/fonts/webfonts/CalSans-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} 
 
 body{
-  font-family: 'Manrope', sans-serif;
+  font-family: 'CalSans';
 }
 
 .lds-ring {
