@@ -1,4 +1,3 @@
-// pages/api/getForms.ts
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/db/client";
