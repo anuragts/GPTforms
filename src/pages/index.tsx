@@ -44,7 +44,9 @@ export default function Home() {
             <Link href={"/form/create"}>Try Now.</Link>
             </div>
           ) : (
-            <div className="text-xl my-[10] text-blue-600">Sign In to get Access.</div>
+            <SignInButton mode="modal">
+            <button className="text-xl my-[2rem] text-blue-500 border-2 border-blue-500 rounded-xl py-4 px-8 hover:bg-blue-500 hover:text-white">Sign In to get Access.</button>
+            </SignInButton>
           )}
         </div>
       </main>
