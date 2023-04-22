@@ -44,7 +44,7 @@ export default function Home() {
             <Link href={"/form/create"}>Try Now.</Link>
             </div>
           ) : (
-            <SignInButton />
+            <div className="text-xl my-[10] text-blue-600">Sign In to get Access.</div>
           )}
         </div>
       </main>
