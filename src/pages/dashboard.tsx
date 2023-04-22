@@ -61,7 +61,7 @@ export default function FormsDashboard() {
               <h2 className="text-lg font-bold">{form.name}</h2>
               <p className="text-gray-500">{form.description}</p>
             </div>
-            {/* <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            {/* <div className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               <Link href={`/edit-form/${form.id}`}>Edit</Link>
             </div> */}
 
