@@ -53,21 +53,27 @@ export default function FormResponse() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center max-w-md mx-auto">
       {formFields.map((field) => (
-        <div key={field.name}>
-          <label>{field.name}</label>
+        <div key={field.name} className="my-4">
+          <label className="block font-bold mb-2">{field.name}</label>
           <input
             type="text"
             name={field.name}
             value={formData[field.name] || ""}
             onChange={handleChange}
             required
+            className="w-full px-3 py-2 rounded border border-gray-300 text-gray-800 focus:outline-none focus:border-blue-500"
           />
-          <p>{field.description}</p>
+          <p className="text-gray-500 text-sm mt-1">{field.description}</p>
         </div>
       ))}
-      <button type="submit" disabled={loading} onClick={handleSubmit}>
+      <button
+        type="submit"
+        disabled={loading}
+        onClick={handleSubmit}
+        className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-600 transition duration-300"
+      >
         {loading ? "Loading..." : "Submit"}
       </button>
     </div>

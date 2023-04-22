@@ -23,10 +23,31 @@ const Header = () => {
         <div className="hidden md:flex items-center">
           {!!userId ? (
             <>
-              <div className="mr-4 hover:text-gray-300 transition duration-300">
-                <Link href="/dashboard">Dashboard</Link>
+              <div className="mx-8 hover:text-gray-300 transition duration-300 ">
+                <Link href="/dashboard">
+                  <div className="flex items-center">
+                    <span className="mr-2 text-xl">Dashboard</span>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
               </div>
-              <div className="bg-red-600 text-white font-bold py-2 px-4 rounded-full hover:bg-red-500  transition duration-300">
+
+              <div className=" text-xl bg-red-600 text-white font-bold py-2 px-4 rounded-full hover:bg-red-500  transition duration-300">
                 <SignOutButton />
               </div>
             </>
