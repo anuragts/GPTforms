@@ -42,7 +42,7 @@ export default function Home() {
           {userId ? (
             <Link href={"/form/create"}>Try Now.</Link>
           ) : (
-            <SignInButton />
+            null
           )}
         </div>
       </main>
