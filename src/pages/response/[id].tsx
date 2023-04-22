@@ -91,11 +91,11 @@ export default function FormResponse() {
 
   return (
     <div className="flex flex-col items-center max-w-md mx-auto">
-      <h2 className="text-5xl mt-[3rem] mb-[2rem]  font-semibold">{formDetails.name}</h2>
-      <p>{formDetails.description}</p>
+      <h2 className="text-5xl mt-[3rem] mb-[2rem] font-semibold">{formDetails.name}</h2>
+      <p className="text-gray-600 text-xl">{formDetails.description}</p>
       <form onSubmit={handleSubmit} className="mt-[5rem]">
         {formFields.map((field) => (
-          <div key={field.name} className="my-4">
+          <div key={field.name} className="my-2">
             <label className="block font-bold mb-2">{field.name}</label>
             <input
               type="text"
@@ -105,7 +105,7 @@ export default function FormResponse() {
               required
               className="w-full px-3 py-2 rounded border border-gray-300 text-gray-800 focus:outline-none focus:border-blue-500"
             />
-            <p className="text-gray-500 text-sm mt-1">{field.description}</p>
+            <p className="text-gray-600 text-sm mt-1">{field.description}</p>
           </div>
         ))}
         <button
