@@ -59,6 +59,7 @@ export default function FieldForm() {
       );
       setFields([{ name: "", description: "" }]);
       toast.success("Field created successfully!");
+      router.push("/response/" + id)
     } catch (error) {
       console.error(error);
       toast.error("An error occurred.");
