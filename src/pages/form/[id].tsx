@@ -131,7 +131,7 @@ export default function FieldForm() {
               </button>
 
               {id && (
-                <div className="flex items-center">
+                <div className="flex items-center m1-4">
                   <p className="mr-2">Form link:</p>
                   <span className="bg-gray-100 px-2 py-1 rounded">{link}</span>
                   <CopyToClipboard text={link} onCopy={() => setCopied(true)}>
