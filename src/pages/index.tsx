@@ -1,6 +1,6 @@
 import { useAuth, useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { useEffect,FC } from "react";
 import axios from "axios";
 import Link from "next/link";
 
