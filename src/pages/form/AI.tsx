@@ -62,64 +62,73 @@ export default function CreateAI() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
+  
     if (!user_id) {
       console.error("User ID not available.");
       setLoading(false);
       return;
     }
-
+  
     try {
       const response = await axios.post("/api/Form/createForm", {
         name,
         description,
         user_id,
       });
-
       if (response) {
-        setForm_id(parseInt(response?.data?.id));
+        console.log("Create response: ", response);
+        console.log('id' ,response?.data?.id)
+        const formId = response?.data?.id;
         console.log("Form created.");
+        
+        try {
+          if (!name || !description || !fields) {
+            console.error("Fields not provided.");
+          } else {
+            const response = await axios.post("/api/AI/get", {
+              name,
+              description,
+              no_fields: fields,
+            });
+    
+            console.log("AI response: ", response);
+    
+            if (response) {
+              console.log('fid',formId)
+              if (formId) {
+                const str = response?.data
+                const result:[] = str.replace(/^"|"$/g, '');
+                console.log(result)
+                console.log(typeof result)
+                const fields_arr = JSON.parse(response?.data);
+                const createdFields = await createFields(fields_arr, formId);
+                console.log("AI created. field");
+    
+                if (createdFields) {
+                  console.log("Fields created.");
+                } else {
+                  console.error("fields not created");
+                }
+              } else {
+                console.error("form id not provided.");
+              }
+            } else {
+              console.log("Error creating AI. response not provided");
+            }
+          }
+        } catch (error) {
+          console.error("Error creating AI: ", error);
+        }
+  
+        setForm_id(formId);
       }
     } catch (error) {
       console.error("Error creating form: ", error);
     }
-
-    try {
-      if (!name || !description || !fields) {
-        console.error("Fields not provided.");
-      } else {
-        const response = await axios.post("/api/AI/get", {
-          name,
-          description,
-          no_fields: fields,
-        });
-
-        console.log("AI response: ", response);
-
-        if (response) {
-          if (form_id != null) {
-            const fields_arr = JSON.parse(response?.data);
-            const createdFields = await createFields(fields_arr, form_id);
-            console.log("AI created. field");
-
-            if (createdFields) {
-              console.log("Fields created.");
-            } else {
-              console.error("fields not created");
-            }
-          } else {
-            console.error("form id not provided.");
-          }
-        } else {
-          console.log("Error creating AI. response not provided");
-        }
-      }
-    } catch (error) {
-      console.error("Error creating AI: ", error);
-    }
-
+  
     setLoading(false);
   };
+  
 
   return (
     <>
@@ -206,3 +215,5 @@ export default function CreateAI() {
     </>
   );
 }
+
+// " [ {1:'What is the derivative of x^2 ?'}, {2:'Evaluate the integral of sin x dx'}, {3:'What is the graph of y = x^2 ?'} ]"
