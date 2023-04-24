@@ -23,7 +23,7 @@ export default function CreateAI() {
           const user_id = id.data?.id;
           setUser_id(user_id);
         } catch (error) {
-          console.log("Error fetching user id: ", error);
+          console.error("Error fetching user id: ", error);
         }
       };
       fetchUser();
@@ -35,7 +35,7 @@ export default function CreateAI() {
     setLoading(true);
 
     if (!user_id) {
-      console.log("User ID not available.");
+      console.error("User ID not available.");
       setLoading(false);
       return;
     }
@@ -51,12 +51,12 @@ export default function CreateAI() {
         console.log("Form created.");
       }
     } catch (error) {
-      console.log("Error creating form: ", error);
+      console.error("Error creating form: ", error);
     }
 
     try {
       if (!name || !description || !fields) {
-        console.log("Fields not provided.");
+        console.error("Fields not provided.");
       } else {
         const response = await axios.post("/api/AI/get", {
           name,
@@ -65,14 +65,13 @@ export default function CreateAI() {
         });
         if (response) {
           console.log("AI created.");
-          console.log(response.data);
           setResponse(response.data);
         } else {
           console.log("Error creating AI.");
         }
       }
     } catch (error) {
-      console.log("Error creating AI: ", error);
+      console.error("Error creating AI: ", error);
     }
 
     setLoading(false);
@@ -156,3 +155,6 @@ export default function CreateAI() {
     </>
   );
 }
+
+// [ {1:'What is the derivative of x^2?'}, {2:'What is the integral of 5x+2 ?'} ]
+
