@@ -52,9 +52,14 @@ const Header = () => {
               </div>
             </>
           ) : (
-            <div className="bg-white text-blue-500 font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:text-white transition duration-300">
-              <SignInButton />
-            </div>
+             <button
+                type='button'
+                onClick={() => window.open("https://github.com/anuragts/GPTforms", "_blank")}
+                className='bg-white text-blue-500 font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:text-white transition duration-300'
+              >
+                 GitHub
+                </button>
+             </>
           )}
         </div>
       </header>
