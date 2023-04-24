@@ -2,6 +2,34 @@ import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 
+interface Field {
+  name: string;
+  description: string;
+  form_id: number;
+}
+
+interface FormField {
+  name: string;
+  description: string;
+}
+
+export const createFields = async (
+  fields: Array<{ [key: number]: string }>,
+  formId: number
+) => {
+  const mappedFields: Array<FormField> = fields.map((field) => {
+    const name = Object.values(field)[0];
+    return { name, description: "", form_id: formId };
+  });
+
+  const fieldCreationPromises = mappedFields.map((field) =>
+    axios.post<Field>("/api/Form/createFields", field)
+  );
+  const createdFields = await Promise.all(fieldCreationPromises);
+
+  return createdFields.map((field) => field.data);
+};
+
 export default function CreateAI() {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -9,6 +37,7 @@ export default function CreateAI() {
   const [user_id, setUser_id] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
+  const [form_id, setForm_id] = useState<number | null>(null);
 
   const { user } = useUser();
   const email: string = user?.primaryEmailAddress?.emailAddress as string;
@@ -23,7 +52,7 @@ export default function CreateAI() {
           const user_id = id.data?.id;
           setUser_id(user_id);
         } catch (error) {
-          console.log("Error fetching user id: ", error);
+          console.error("Error fetching user id: ", error);
         }
       };
       fetchUser();
@@ -35,7 +64,7 @@ export default function CreateAI() {
     setLoading(true);
 
     if (!user_id) {
-      console.log("User ID not available.");
+      console.error("User ID not available.");
       setLoading(false);
       return;
     }
@@ -48,31 +77,45 @@ export default function CreateAI() {
       });
 
       if (response) {
+        setForm_id(parseInt(response?.data?.id));
         console.log("Form created.");
       }
     } catch (error) {
-      console.log("Error creating form: ", error);
+      console.error("Error creating form: ", error);
     }
 
     try {
       if (!name || !description || !fields) {
-        console.log("Fields not provided.");
+        console.error("Fields not provided.");
       } else {
         const response = await axios.post("/api/AI/get", {
           name,
           description,
           no_fields: fields,
         });
+
+        console.log("AI response: ", response);
+
         if (response) {
-          console.log("AI created.");
-          console.log(response.data);
-          setResponse(response.data);
+          if (form_id != null) {
+            const fields_arr = JSON.parse(response?.data);
+            const createdFields = await createFields(fields_arr, form_id);
+            console.log("AI created. field");
+
+            if (createdFields) {
+              console.log("Fields created.");
+            } else {
+              console.error("fields not created");
+            }
+          } else {
+            console.error("form id not provided.");
+          }
         } else {
-          console.log("Error creating AI.");
+          console.log("Error creating AI. response not provided");
         }
       }
     } catch (error) {
-      console.log("Error creating AI: ", error);
+      console.error("Error creating AI: ", error);
     }
 
     setLoading(false);
@@ -89,70 +132,77 @@ export default function CreateAI() {
           <h2 className="mb-10 text-center text-3xl font-extrabold text-gray-900">
             Create Form
           </h2>
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-            Name:
+          <label
+            htmlFor="name"
+            className="block text
+-center font-medium text-gray-700"
+          >
+            Form Name
           </label>
           <input
+            type="text"
             id="name"
             name="name"
-            type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your form name example - Maths exam form."
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
+            placeholder="Enter form name"
+            className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
         </div>
 
         <div className="mb-4">
           <label
             htmlFor="description"
-            className="block text-gray-700 font-bold mb-2"
+            className="block text-center font-medium text-gray-700"
           >
-            Description:
+            Form Description
           </label>
-          <input
+          <textarea
             id="description"
-            type="text"
             name="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Add more description. Example - Calculus Exam"
-            className="shadow appearance-none border-rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
+            placeholder="Enter form description"
+            className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
         </div>
+
         <div className="mb-4">
           <label
             htmlFor="fields"
-            className="block text-gray-700 font-bold mb-2"
+            className="block text-center font-medium text-gray-700"
           >
-            Number of Fields:
+            Number of Fields
           </label>
           <input
-            id="fields"
             type="number"
+            id="fields"
             name="fields"
             min={0}
             value={fields}
-            onChange={(e) => setFields(Number(e.target.value))}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
+            onChange={(e) => setFields(parseInt(e.target.value))}
+            placeholder="Enter number of fields"
+            className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
           />
         </div>
-        <div className="flex items-center justify-center">
+
+        <div className="mt-6 text-center">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            disabled={loading}
+            className="py-3 px-6 text-lg font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={!name || !description || !fields || loading}
           >
             {loading ? "Creating..." : "Create"}
           </button>
         </div>
-      </form>
-      <div>
-        {response}
+
+        {/* {response && (
+      <div className="mt-6 text-center text-green-600">
+        AI created with fields:{" "}
+        {response.map((field) => field.name).join(", ")}
       </div>
+    )} */}
+      </form>
     </>
   );
 }
