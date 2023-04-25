@@ -14,15 +14,15 @@ interface FormField {
 }
 
 export const createFields = async (
-  fields: Array<{ [key: number]: string }>,
+  fields: any,
   formId: number
 ) => {
-  const mappedFields: Array<FormField> = fields.map((field) => {
+  const mappedFields: any= fields.map((field:any) => {
     const name = Object.values(field)[0];
     return { name, description: "", form_id: formId };
   });
 
-  const fieldCreationPromises = mappedFields.map((field) =>
+  const fieldCreationPromises = mappedFields.map((field:any) =>
     axios.post<Field>("/api/Form/createFields", field)
   );
   const createdFields = await Promise.all(fieldCreationPromises);
@@ -36,7 +36,6 @@ export default function CreateAI() {
   const [fields, setFields] = useState<number>(0);
   const [user_id, setUser_id] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [response, setResponse] = useState<string>("");
   const [form_id, setForm_id] = useState<number | null>(null);
 
   const { user } = useUser();
@@ -97,10 +96,14 @@ export default function CreateAI() {
               console.log('fid',formId)
               if (formId) {
                 const str = response?.data
-                const result:[] = str.replace(/^"|"$/g, '');
+                // str = [ {1:'What is the derivative of x^2 ?'}, {2:'Evaluate the integral of sin x dx'}, {3:'What is the graph of y = x^2 ?'} ]
+                let result = str.replace(/^"|"$/g, '');
+                result = result.replace(/'/g, '"');
                 console.log(result)
                 console.log(typeof result)
-                const fields_arr = JSON.parse(response?.data);
+
+                const fields_arr = JSON.parse(result);
+                console.log("fields_arr: ", fields_arr);
                 const createdFields = await createFields(fields_arr, formId);
                 console.log("AI created. field");
     
@@ -216,4 +219,4 @@ export default function CreateAI() {
   );
 }
 
-// " [ {1:'What is the derivative of x^2 ?'}, {2:'Evaluate the integral of sin x dx'}, {3:'What is the graph of y = x^2 ?'} ]"
+// [ {1:'What is the derivative of x^2 ?'}, {2:'Evaluate the integral of sin x dx'}, {3:'What is the graph of y = x^2 ?'} ]

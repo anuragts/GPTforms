@@ -29,7 +29,7 @@ const Header = () => {
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">GPT forms</span>
               <img
                 className="h-8 w-auto"
@@ -54,7 +54,7 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-sm font-semibold leading-6 text-gray-900"
+                  className="text-xl font-semibold leading-6 text-gray-900"
                 >
                   {item.name}
                 </a>
@@ -63,7 +63,7 @@ const Header = () => {
           ) : null}
           {!!userId ? (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <button className="text-sm font-semibold leading-6 text-red-600">
+              <button className="text-xl font-semibold leading-6 text-red-600">
                 <SignOutButton />
                 <span aria-hidden="true">&rarr;</span>
               </button>
@@ -71,7 +71,7 @@ const Header = () => {
           ) : (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
               <SignInButton mode="modal">
-                <button className="text-sm font-semibold leading-6 text-gray-900">
+                <button className="text-xl font-semibold leading-6 text-gray-900">
                   Log in <span aria-hidden="true">&rarr;</span>
                 </button>
               </SignInButton>
