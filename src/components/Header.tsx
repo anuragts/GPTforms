@@ -23,7 +23,7 @@ const Header = () => {
       </Head>
       {/*  */}
 
-      <header className="absolute inset-x-0 top-0  mb-[5rem]">
+      <header className="absolute inset-x-0 top-0 z-50 mb-[5rem]">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
