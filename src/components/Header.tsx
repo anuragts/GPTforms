@@ -33,7 +33,7 @@ const Header = () => {
               <span className="sr-only">GPT forms</span>
               <img
                 className="h-8 md:h-12 rounded-xl w-auto"
-                src="logo.png"
+                src="/logo.png"
                 alt="gptforms special logo"
               />
             </a>

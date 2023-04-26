@@ -46,7 +46,7 @@ export default function FormsDashboard() {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8 text-center mt-[3rem]">My Forms</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center mt-[8rem] md:[10rem]">My Forms</h1>
       {isLoading ? ( // Render a loading spinner while the forms are being loaded
         <div className="flex justify-center items-center h-32">
           <Spinner />

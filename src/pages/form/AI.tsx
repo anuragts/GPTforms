@@ -128,10 +128,10 @@ export default function CreateAI() {
 
   return (
     <>
-      <div className="flex justify-center mt-[10%]">
+      <div className="flex justify-center mt-[10%] mx-[2rem]">
         <form onSubmit={handleSubmit} className="w-full md:w-1/2 lg:w-1/3">
           <div className="mb-4">
-            <h2 className="mb-10 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="mb-10 mt-[8rem] md:[10rem] text-center text-3xl font-extrabold text-gray-900">
               Create Form using AI
             </h2>
             <label

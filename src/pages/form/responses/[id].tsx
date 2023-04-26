@@ -42,7 +42,7 @@ export default function FormResponses() {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8">Form Responses</h1>
+      <h1 className="text-3xl mt-[8rem] md:[10rem] font-bold mb-8">Form Responses</h1>
       {loading ? (
         <div className="flex justify-center items-center h-48">
             <Spinner/>
