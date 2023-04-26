@@ -13,16 +13,13 @@ interface FormField {
   description: string;
 }
 
-export const createFields = async (
-  fields: any,
-  formId: number
-) => {
-  const mappedFields: any= fields.map((field:any) => {
+export const createFields = async (fields: any, formId: number) => {
+  const mappedFields: any = fields.map((field: any) => {
     const name = Object.values(field)[0];
     return { name, description: "", form_id: formId };
   });
 
-  const fieldCreationPromises = mappedFields.map((field:any) =>
+  const fieldCreationPromises = mappedFields.map((field: any) =>
     axios.post<Field>("/api/Form/createFields", field)
   );
   const createdFields = await Promise.all(fieldCreationPromises);
@@ -61,13 +58,13 @@ export default function CreateAI() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-  
+
     if (!user_id) {
       console.error("User ID not available.");
       setLoading(false);
       return;
     }
-  
+
     try {
       const response = await axios.post("/api/Form/createForm", {
         name,
@@ -76,10 +73,10 @@ export default function CreateAI() {
       });
       if (response) {
         console.log("Create response: ", response);
-        console.log('id' ,response?.data?.id)
+        console.log("id", response?.data?.id);
         const formId = response?.data?.id;
         console.log("Form created.");
-        
+
         try {
           if (!name || !description || !fields) {
             console.error("Fields not provided.");
@@ -89,24 +86,18 @@ export default function CreateAI() {
               description,
               no_fields: fields,
             });
-    
-            console.log("AI response: ", response);
-    
-            if (response) {
-              console.log('fid',formId)
-              if (formId) {
-                const str = response?.data
-                // str = [ {1:'What is the derivative of x^2 ?'}, {2:'Evaluate the integral of sin x dx'}, {3:'What is the graph of y = x^2 ?'} ]
-                let result = str.replace(/^"|"$/g, '');
-                result = result.replace(/'/g, '"');
-                console.log(result)
-                console.log(typeof result)
 
+            console.log("AI response: ", response);
+
+            if (response) {
+              if (formId) {
+                const str = response?.data;
+                let result = str.replace(/([{,])([^{:,]+):/g, '$1"$2":');
+                result = result.replace(/'/g, '"'); // replace single quotes with double quotes
                 const fields_arr = JSON.parse(result);
-                console.log("fields_arr: ", fields_arr);
                 const createdFields = await createFields(fields_arr, formId);
                 console.log("AI created. field");
-    
+
                 if (createdFields) {
                   console.log("Fields created.");
                 } else {
@@ -116,22 +107,21 @@ export default function CreateAI() {
                 console.error("form id not provided.");
               }
             } else {
-              console.log("Error creating AI. response not provided");
+              console.error("Error creating AI. response not provided");
             }
           }
         } catch (error) {
           console.error("Error creating AI: ", error);
         }
-  
+
         setForm_id(formId);
       }
     } catch (error) {
       console.error("Error creating form: ", error);
     }
-  
+
     setLoading(false);
   };
-  
 
   return (
     <>

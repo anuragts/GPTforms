@@ -63,17 +63,17 @@ const Header = () => {
           ) : null}
           {!!userId ? (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <button className="text-xl font-semibold leading-6 text-red-600">
+              <div className="text-xl font-semibold cursor-pointer leading-6 text-red-600">
                 <SignOutButton />
                 <span aria-hidden="true">&rarr;</span>
-              </button>
+              </div>
             </div>
           ) : (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
               <SignInButton mode="modal">
-                <button className="text-xl font-semibold leading-6 text-gray-900">
+                <div className="text-xl font-semibold leading-6 cursor-pointer text-gray-900">
                   Log in <span aria-hidden="true">&rarr;</span>
-                </button>
+                </div>
               </SignInButton>
             </div>
           )}
