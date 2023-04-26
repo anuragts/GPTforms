@@ -13,16 +13,13 @@ interface FormField {
   description: string;
 }
 
-export const createFields = async (
-  fields: Array<{ [key: number]: string }>,
-  formId: number
-) => {
-  const mappedFields: Array<FormField> = fields.map((field) => {
+export const createFields = async (fields: any, formId: number) => {
+  const mappedFields: any = fields.map((field: any) => {
     const name = Object.values(field)[0];
     return { name, description: "", form_id: formId };
   });
 
-  const fieldCreationPromises = mappedFields.map((field) =>
+  const fieldCreationPromises = mappedFields.map((field: any) =>
     axios.post<Field>("/api/Form/createFields", field)
   );
   const createdFields = await Promise.all(fieldCreationPromises);
@@ -36,7 +33,6 @@ export default function CreateAI() {
   const [fields, setFields] = useState<number>(0);
   const [user_id, setUser_id] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [response, setResponse] = useState<string>("");
   const [form_id, setForm_id] = useState<number | null>(null);
 
   const { user } = useUser();
@@ -75,47 +71,53 @@ export default function CreateAI() {
         description,
         user_id,
       });
-
       if (response) {
-        setForm_id(parseInt(response?.data?.id));
+        console.log("Create response: ", response);
+        console.log("id", response?.data?.id);
+        const formId = response?.data?.id;
         console.log("Form created.");
+
+        try {
+          if (!name || !description || !fields) {
+            console.error("Fields not provided.");
+          } else {
+            const response = await axios.post("/api/AI/get", {
+              name,
+              description,
+              no_fields: fields,
+            });
+
+            console.log("AI response: ", response);
+
+            if (response) {
+              if (formId) {
+                const str = response?.data;
+                let result = str.replace(/([{,])([^{:,]+):/g, '$1"$2":');
+                result = result.replace(/'/g, '"'); // replace single quotes with double quotes
+                const fields_arr = JSON.parse(result);
+                const createdFields = await createFields(fields_arr, formId);
+                console.log("AI created. field");
+
+                if (createdFields) {
+                  console.log("Fields created.");
+                } else {
+                  console.error("fields not created");
+                }
+              } else {
+                console.error("form id not provided.");
+              }
+            } else {
+              console.error("Error creating AI. response not provided");
+            }
+          }
+        } catch (error) {
+          console.error("Error creating AI: ", error);
+        }
+
+        setForm_id(formId);
       }
     } catch (error) {
       console.error("Error creating form: ", error);
-    }
-
-    try {
-      if (!name || !description || !fields) {
-        console.error("Fields not provided.");
-      } else {
-        const response = await axios.post("/api/AI/get", {
-          name,
-          description,
-          no_fields: fields,
-        });
-
-        console.log("AI response: ", response);
-
-        if (response) {
-          if (form_id != null) {
-            const fields_arr = JSON.parse(response?.data);
-            const createdFields = await createFields(fields_arr, form_id);
-            console.log("AI created. field");
-
-            if (createdFields) {
-              console.log("Fields created.");
-            } else {
-              console.error("fields not created");
-            }
-          } else {
-            console.error("form id not provided.");
-          }
-        } else {
-          console.log("Error creating AI. response not provided");
-        }
-      }
-    } catch (error) {
-      console.error("Error creating AI: ", error);
     }
 
     setLoading(false);
@@ -206,3 +208,5 @@ export default function CreateAI() {
     </>
   );
 }
+
+// [ {1:'What is the derivative of x^2 ?'}, {2:'Evaluate the integral of sin x dx'}, {3:'What is the graph of y = x^2 ?'} ]
