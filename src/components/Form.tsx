@@ -64,56 +64,61 @@ export default function Form({ email }: FormProps) {
   };
 
   return (
-    <div className="flex justify-center mt-[10%]">
-      <form onSubmit={handleSubmit} className="w-full md:w-1/2 lg:w-1/3">
-        <div className="mb-4">
-          <h2 className="mb-10 text-center text-3xl font-extrabold text-gray-900">
-            Create Form
-          </h2>
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-            Name:
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your form name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
+    <>
+      <div className="flex justify-center mt-[10%]">
+        <form onSubmit={handleSubmit} className="w-full md:w-1/2 lg:w-1/3">
+          <div className="mb-4">
+            <h2 className="mb-10 text-center text-3xl font-extrabold text-gray-900">
+              Create Form
+            </h2>
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Name:
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your form name"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="description"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Description:
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="optional"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="description"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Description:
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="optional"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
 
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            {loading ? "Loading..." : "Create Form"}
-          </button>
-        </div>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              {loading ? "Loading..." : "Create Form"}
+            </button>
+          </div>
 
-        <ToastContainer />
-      </form>
-    </div>
+          <ToastContainer />
+        </form>
+      </div>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-
+import { useRouter } from "next/router";
 interface Field {
   name: string;
   description: string;
@@ -37,6 +37,8 @@ export default function CreateAI() {
 
   const { user } = useUser();
   const email: string = user?.primaryEmailAddress?.emailAddress as string;
+
+  const router = useRouter();
 
   useEffect(() => {
     if (email) {
@@ -100,6 +102,7 @@ export default function CreateAI() {
 
                 if (createdFields) {
                   console.log("Fields created.");
+                  router.push(`/response/${formId}`);
                 } else {
                   console.error("fields not created");
                 }
@@ -125,88 +128,80 @@ export default function CreateAI() {
 
   return (
     <>
-      <div className="text-center my-[5rem] text-2xl font-semibold">
-        Create AI
+      <div className="flex justify-center mt-[10%]">
+        <form onSubmit={handleSubmit} className="w-full md:w-1/2 lg:w-1/3">
+          <div className="mb-4">
+            <h2 className="mb-10 text-center text-3xl font-extrabold text-gray-900">
+              Create Form using AI
+            </h2>
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Name:
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              autoComplete="off"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your form name eg :- Maths exam"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="description"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Description:
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={description}
+              required
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="more description about your form eg :- Calculus test"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="fields"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              No of Fields:
+            </label>
+            <input
+              type="number"
+              id="fields"
+              name="fields"
+              min={2}
+              required
+              value={fields}
+              onChange={(e) => setFields(parseInt(e.target.value))}
+              placeholder="Enter number of fields"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="mt-6 text-center">
+            <button
+              type="submit"
+              className="py-3 px-6 text-lg font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              disabled={!name || !description || !fields || loading}
+            >
+              {loading ? "Creating..." : "Create"}
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <h2 className="mb-10 text-center text-3xl font-extrabold text-gray-900">
-            Create Form
-          </h2>
-          <label
-            htmlFor="name"
-            className="block text
--center font-medium text-gray-700"
-          >
-            Form Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter form name"
-            className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="description"
-            className="block text-center font-medium text-gray-700"
-          >
-            Form Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Enter form description"
-            className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="fields"
-            className="block text-center font-medium text-gray-700"
-          >
-            Number of Fields
-          </label>
-          <input
-            type="number"
-            id="fields"
-            name="fields"
-            min={0}
-            value={fields}
-            onChange={(e) => setFields(parseInt(e.target.value))}
-            placeholder="Enter number of fields"
-            className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-        </div>
-
-        <div className="mt-6 text-center">
-          <button
-            type="submit"
-            className="py-3 px-6 text-lg font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            disabled={!name || !description || !fields || loading}
-          >
-            {loading ? "Creating..." : "Create"}
-          </button>
-        </div>
-
-        {/* {response && (
-      <div className="mt-6 text-center text-green-600">
-        AI created with fields:{" "}
-        {response.map((field) => field.name).join(", ")}
-      </div>
-    )} */}
-      </form>
     </>
   );
 }
-
-// [ {1:'What is the derivative of x^2 ?'}, {2:'Evaluate the integral of sin x dx'}, {3:'What is the graph of y = x^2 ?'} ]
