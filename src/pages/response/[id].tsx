@@ -101,7 +101,7 @@ export default function FormResponse() {
       <h2 className="text-4xl  mb-[1rem] mt-[8rem] md:[10rem] font-semibold">
         {formDetails.name}
       </h2>
-      <p className="text-gray-600">{formDetails.description}</p>
+      {/* <p className="text-gray-600">{formDetails.description}</p> */}
       <form onSubmit={handleSubmit} className="mt-[5rem]">
         {formFields.map((field) => (
           <div key={field.name} className="my-4">
