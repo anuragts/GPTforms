@@ -91,8 +91,8 @@ export default function FormResponse() {
 
   return (
     <div className="flex flex-col items-center max-w-md mx-auto">
-      <h2 className="text-5xl mt-[3rem] mb-[2rem]  font-semibold">{formDetails.name}</h2>
-      <p>{formDetails.description}</p>
+      <h2 className="text-4xl mt-[10rem] mb-[1rem]  font-semibold">{formDetails.name}</h2>
+      <p className="text-gray-600">{formDetails.description}</p>
       <form onSubmit={handleSubmit} className="mt-[5rem]">
         {formFields.map((field) => (
           <div key={field.name} className="my-4">
