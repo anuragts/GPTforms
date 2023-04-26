@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import { toast } from "react-toastify";
+import { RiShareBoxFill } from "react-icons/ri";
 import "react-toastify/dist/ReactToastify.css";
-
 
 interface FormField {
   name: string;
@@ -83,15 +83,24 @@ export default function FormResponse() {
     setLoading(false);
   };
 
+  const copy = () => {
+    navigator.clipboard.writeText(window.location.href);
+    window.alert("Link copied to clipboard!");
+  }
+
   if (fetching) {
-    return <div className="flex justify-center mt-[30vh]">
-      <Spinner/>
-    </div>;
+    return (
+      <div className="flex justify-center mt-[30vh]">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
     <div className="flex flex-col items-center max-w-md mx-auto">
-      <h2 className="text-4xl  mb-[1rem] mt-[8rem] md:[10rem] font-semibold">{formDetails.name}</h2>
+      <h2 className="text-4xl  mb-[1rem] mt-[8rem] md:[10rem] font-semibold">
+        {formDetails.name}
+      </h2>
       <p className="text-gray-600">{formDetails.description}</p>
       <form onSubmit={handleSubmit} className="mt-[5rem]">
         {formFields.map((field) => (
@@ -115,6 +124,15 @@ export default function FormResponse() {
         >
           {loading ? "Loading..." : "Submit"}
         </button>
+        <br />
+        <div onClick={copy} className="bg-indigo-500 cursor-pointer my-[2rem] w-[6rem] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-indigo-600 transition duration-300">
+          <div className="flex">
+            <div className="mr-2">Share</div>
+            <div className="">
+              <RiShareBoxFill />
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   );

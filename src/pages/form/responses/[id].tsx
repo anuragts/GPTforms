@@ -40,6 +40,7 @@ export default function FormResponses() {
     }
   }, [formId]);
 
+
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-3xl mt-[8rem] md:[10rem] font-bold mb-8">Form Responses</h1>
