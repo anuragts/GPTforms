@@ -32,9 +32,9 @@ const Header = () => {
             <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">GPT forms</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
+                className="h-12 rounded-xl w-auto"
+                src="logo.png"
+                alt="gptforms special logo"
               />
             </a>
           </div>
