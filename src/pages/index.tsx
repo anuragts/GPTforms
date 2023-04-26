@@ -51,7 +51,7 @@ export default function Home() {
                   <div className="mt-10 flex items-center justify-center gap-x-6">
                     <Link
                       href="/form/AI"
-                      className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="rounded-md bg-blue-500 px-3.5 py-2.5 cursor-pointer text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Get started
                     </Link>
@@ -59,7 +59,7 @@ export default function Home() {
                 ) : (
                   <div className="mt-10 flex items-center justify-center gap-x-6">
                     <SignInButton mode="modal">
-                      <div className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                      <div className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm cursor-pointer font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Sign In
                       </div>
                     </SignInButton>
