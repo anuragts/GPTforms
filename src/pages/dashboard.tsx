@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Spinner from "@/components/Spinner";
+import { AiOutlineLink } from "react-icons/ai";
 
 interface Form {
   id: number;
@@ -46,7 +47,9 @@ export default function FormsDashboard() {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8 text-center mt-[3rem]">My Forms</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center mt-[8rem] md:[10rem]">
+        My Forms
+      </h1>
       {isLoading ? ( // Render a loading spinner while the forms are being loaded
         <div className="flex justify-center items-center h-32">
           <Spinner />
@@ -61,13 +64,16 @@ export default function FormsDashboard() {
               <h2 className="text-lg font-bold">{form.name}</h2>
               <p className="text-gray-500">{form.description}</p>
             </div>
-            {/* <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              <Link href={`/edit-form/${form.id}`}>Edit</Link>
-            </div> */}
-
-            <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <div className="flex flex-row ">
+              <div className="bg-indigo-500 mx-5 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                <Link href={`/response/${form.id}`}>
+                <AiOutlineLink />
+                </Link>
+              </div>
+              <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 <Link href={`/form/responses/${form.id}`}>Responses</Link>
-                </div>
+              </div>
+            </div>
           </div>
         ))
       )}
