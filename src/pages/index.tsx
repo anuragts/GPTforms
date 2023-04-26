@@ -33,7 +33,7 @@ export default function Home() {
     }
   }, [user]);
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return null;
   else {
     return (
         <div className="">
