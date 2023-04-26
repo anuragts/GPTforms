@@ -3,7 +3,7 @@
 [x] Response Function
 [x] Show all forms and response
 [x] Show response in Table
-[] UI UX and announcement 
-[] gpt addition 
+[x] UI UX and announcement 
+[x] gpt addition 
 [] Make a field require or not.
 [] Edit fields.
