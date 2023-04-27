@@ -183,6 +183,7 @@ export default function CreateAI() {
               id="fields"
               name="fields"
               min={2}
+              max={10}
               required
               value={fields}
               onChange={(e) => setFields(parseInt(e.target.value))}
