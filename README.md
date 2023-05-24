@@ -18,6 +18,10 @@ pnpm dev
 
 pnpm prisma studio
 
+# optional --  also if you want push db changes use this command
+
+pnpm prisma db push
+
 ```
 
 Add <b> .env </b> file with the following content:
@@ -38,6 +42,8 @@ OPENAI_API_KEY=''
 @/pages/api/AI/get.ts
 
 @/pages/api/FORM
+
+@/prisma/schema.prisma
 
 
 
