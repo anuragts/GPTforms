@@ -4,6 +4,16 @@
 
 It helps to make forms using a prompt.
 
+#### Tech stack 
+
+- Next.js
+- Typescript
+- Prisma ORM
+- Clerk Auth
+- OpenAI
+- Planetscale
+- Tailwindcss
+
 #### How to install
 
 ```bash
