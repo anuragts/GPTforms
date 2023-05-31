@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { openAi } from "@/config/openAi.config";
 
-interface Form {
+type Form = {
   name: string;
   description: string;
   no_fields: string;

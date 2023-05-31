@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { useRouter } from "next/router";
-interface Field {
+type Field = {
   name: string;
   description: string;
   form_id: number;
 }
 
-interface FormField {
+type FormField = {
   name: string;
   description: string;
 }

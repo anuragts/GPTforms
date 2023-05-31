@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/db/client";
 
-interface Form {
+type Form = {
   form_id: string;
   formData: {
     [key: string]: string;

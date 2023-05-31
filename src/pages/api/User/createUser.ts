@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/db/client";
 
-interface User {
+type User = {
   name?: string;
   email: string;
 }

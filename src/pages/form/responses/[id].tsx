@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 
-interface FormField {
+type FormField = {
   id: number;
   field_name: string;
   field_value: string;
   response_id: number;
 }
 
-interface FormResponse {
+type FormResponse = {
   id: number;
   createdAt: string;
   form_id: number;
