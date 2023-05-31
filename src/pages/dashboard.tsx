@@ -4,7 +4,7 @@ import Link from "next/link";
 import Spinner from "@/components/Spinner";
 import { AiOutlineLink } from "react-icons/ai";
 
-interface Form {
+type Form = {
   id: number;
   name: string;
   description: string;

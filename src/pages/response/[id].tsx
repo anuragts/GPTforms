@@ -6,16 +6,16 @@ import { toast } from "react-toastify";
 import { RiShareBoxFill } from "react-icons/ri";
 import "react-toastify/dist/ReactToastify.css";
 
-interface FormField {
+type FormField = {
   name: string;
   description: string;
 }
 
-interface FormData {
+type FormData = {
   [key: string]: string;
 }
 
-interface FormDetails {
+type FormDetails = {
   name: string;
   description: string;
 }

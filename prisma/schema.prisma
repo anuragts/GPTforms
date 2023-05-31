@@ -27,6 +27,7 @@ model forms {
   user_id     Int
   user        user          @relation(fields: [user_id], references: [id])
   form_fields form_fields[]
+  @@index([user_id],name: "user_id")
 }
 
 model form_fields {
@@ -36,6 +37,7 @@ model form_fields {
   description String?
   form_id     Int
   form        forms    @relation(fields: [form_id], references: [id])
+  @@index([form_id], name: "form_id")
 }
 
 model response {
@@ -43,6 +45,7 @@ model response {
   createdAt  DateTime         @default(now())
   form_id    Int
   form_field response_field[]
+  @@index([form_id], name: "form_id")
 }
 
 model response_field {
@@ -51,4 +54,5 @@ model response_field {
   field_value String?
   response    response @relation(fields: [response_id], references: [id])
   response_id Int
+  @@index([response_id], name: "response_id")
 }

@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-interface FormProps {
+type FormProps = {
   email: string;
 }
 
@@ -14,7 +14,7 @@ export default function Form({ email }: FormProps) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  interface Props {
+  type Props = {
     email?: string;
     name?: string;
     description?: string;

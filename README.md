@@ -4,6 +4,16 @@
 
 It helps to make forms using a prompt.
 
+#### Tech stack 
+
+- Next.js
+- Typescript
+- Prisma ORM
+- Clerk Auth
+- OpenAI
+- Planetscale
+- Tailwindcss
+
 #### How to install
 
 ```bash
@@ -17,6 +27,10 @@ pnpm i
 pnpm dev
 
 pnpm prisma studio
+
+# optional --  also if you want push db changes use this command
+
+pnpm prisma db push
 
 ```
 
@@ -38,6 +52,8 @@ OPENAI_API_KEY=''
 @/pages/api/AI/get.ts
 
 @/pages/api/FORM
+
+@/prisma/schema.prisma
 
 
 

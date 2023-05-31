@@ -1,15 +1,15 @@
 import axios from "axios";
 
-interface Field {
+type Field = {
   name: string;
   description: string;
   form_id: number;
-}
+};
 
-interface FormField {
+type FormField = {
   name: string;
   description: string;
-}
+};
 
 export const createFields = async (
   fields: Array<{ [key: number]: string }>,

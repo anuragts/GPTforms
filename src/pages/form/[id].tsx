@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useEffect } from "react";
 
-interface Field {
+type Field = {
   name: string;
   description: string;
 }
